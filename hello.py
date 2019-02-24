@@ -2,8 +2,7 @@ import flask as flask
 import UserList as ul
 import numpy as np
 import pandas as pd
-
-
+import tensorflow as tf
 __author__ = "zhaixiaofan"
 __goal__ = "practice web app and make a class web "
 __doc__ = "nothing to do "
@@ -45,6 +44,13 @@ def save_user():
     #else:
         #return flask.render_template("login.html")
 
+@app.route("/geturl",methods=["POST","GET","DELETE"])
+def get_url():
+    urlcon = flask.request.url
+    print(urlcon)
+    conn = flask.request.args.to_dict()
+    print(conn)
+    return str(conn)
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0",port=5000)
