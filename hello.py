@@ -3,8 +3,11 @@ import UserList as ul
 import numpy as np
 import pandas as pd
 import tensorflow as tf
-from flask_wtf import Form
-from wtforms import StringField,SubmitField
+from flask_bootstrap import  Bootstrap
+import FormClass
+from flask import request
+from werkzeug.datastructures import CombinedMultiDict
+from werkzeug.utils import secure_filename
 
 __author__ = "zhaixiaofan"
 __goal__ = "practice web app and make a class web "
@@ -12,12 +15,29 @@ __doc__ = "nothing to do "
 
 #create app object
 app = flask.Flask(__name__)
-
+app.config["SECRET_KEY"] = "has a hard pw"
+bootstrap = Bootstrap(app)
 new_user = ul.User_List()
 
+"""see https://www.cnblogs.com/caodneg7/p/10139995.html"""
+"""只能单页刷新，没有提示，需要使用session解决"""
 @app.route("/",methods = ["POST","GET"])
 def say_hello():
-    return flask.render_template("sigin.html",name="welcome")
+    form = FormClass.NameForm()
+    name = None
+    file = None
+    if form.validate_on_submit():
+        name = form.name.data
+        form.name.data = ""
+        file = form.file.data
+        print(file.filename.split("."))
+        readname = file.filename.split(".")[0]
+        pfilename = secure_filename(file.filename)
+        filename = readname+"."+pfilename
+        print(filename)
+        file.save(filename)
+    return flask.render_template("hello.html",form=form,name=name,file=file)
+
 #'''
 @app.route("/login",methods = ["POST","GET"])
 def login():
