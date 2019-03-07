@@ -3,6 +3,9 @@ import UserList as ul
 import numpy as np
 import pandas as pd
 import tensorflow as tf
+from flask_wtf import Form
+from wtforms import StringField,SubmitField
+
 __author__ = "zhaixiaofan"
 __goal__ = "practice web app and make a class web "
 __doc__ = "nothing to do "
