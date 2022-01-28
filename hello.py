@@ -20,7 +20,7 @@ bootstrap = Bootstrap(app)
 new_user = ul.User_List()
 
 """see https://www.cnblogs.com/caodneg7/p/10139995.html"""
-"""只能单页刷新，没有提示，需要使用session解决"""
+"""只能单页刷新，没有提示，需要使用"""
 @app.route("/",methods = ["POST","GET"])
 def say_hello():
     form = FormClass.NameForm()
